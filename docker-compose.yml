@@ -1,0 +1,16 @@
+version: '3'
+services:
+  smava-nginx:
+    build: nginx/.
+    image: smava_nginx
+    depends_on:
+      - smava-web
+    ports:
+      - "80:80"
+
+  smava-web:
+    build: .
+    image: smava_web
+    container_name: smava-web
+    ports:
+      - "8080:8080"
