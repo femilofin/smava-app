@@ -20,6 +20,9 @@ module "vpc" {
   enable_dns_hostnames = "true"
   single_nat_gateway   = "true"
 
+  public_subnet_tags = {"Tier" = "public"}
+  private_subnet_tags = {"Tier" = "private"}
+
   tags {
     "Terraform"   = "true"
     "Environment" = "${var.environment}"
