@@ -1,1 +1,10 @@
 environment           = "dev"
+cluster_name = "smava-dev"
+project = "smava"
+app = "smava-web"
+health_check = "/health"
+domain = "mofesola.com"
+url = "smava-app"
+application_memory = "512"
+http_rule_priority = "1"
+
