@@ -2,7 +2,7 @@ version: '3'
 services:
   smava-nginx:
     build: nginx/.
-    image: smava_nginx
+    image: smava-nginx
     depends_on:
       - smava-web
     ports:
@@ -10,7 +10,7 @@ services:
 
   smava-web:
     build: .
-    image: smava_web
+    image: smava-web
     container_name: smava-web
     ports:
       - "8080:8080"

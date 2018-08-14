@@ -1,5 +1,7 @@
+variable "environment" {}
+
 resource "aws_iam_user" "ci_user" {
-  name = "ci_user"
+  name = "${var.environment}_ci_user"
   path = "/ecs/"
 }
 
