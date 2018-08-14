@@ -12,9 +12,6 @@ RestartPreventExitStatus=5
 
 SyslogIdentifier=ecs-agent
 
-ExecStartPre=/bin/mkdir -p /var/log/ecs /var/ecs-data /etc/ecs
-ExecStartPre=/usr/bin/touch /etc/ecs/ecs.config
-ExecStartPre=/bin/sh -c "/usr/bin/echo ECS_AVAILABLE_LOGGING_DRIVERS=[\\\"json-file\\\",\\\"syslog\\\",\\\"fluentd\\\"] > /etc/ecs/ecs.config"
 ExecStartPre=-/usr/bin/docker kill ecs-agent
 ExecStartPre=-/usr/bin/docker rm ecs-agent
 ExecStartPre=/usr/bin/docker pull amazon/amazon-ecs-agent:latest

@@ -15,7 +15,7 @@ data "template_file" "ec2_assume_policy" {
 
 resource "aws_iam_role" "ecs_service" {
   assume_role_policy = "${data.template_file.ec2_assume_policy.rendered}"
-  name = "${var.cluster_name}"
+  name               = "${var.cluster_name}"
 }
 
 data "template_file" "ecs_elb_service" {
@@ -24,7 +24,7 @@ data "template_file" "ecs_elb_service" {
 
 resource "aws_iam_policy" "ecs_elb_service" {
   name_prefix = "tf_ecs_elb_policy"
-  policy = "${data.template_file.ecs_elb_service.rendered}"
+  policy      = "${data.template_file.ecs_elb_service.rendered}"
 }
 
 resource "aws_iam_policy_attachment" "attach_elb" {
@@ -39,8 +39,8 @@ data "template_file" "instance_profile" {
 
 resource "aws_iam_role_policy" "instance" {
   name_prefix = "EcsInstanceRole${var.cluster_name}"
-  role   = "${aws_iam_role.ecs_service.name}"
-  policy = "${data.template_file.instance_profile.rendered}"
+  role        = "${aws_iam_role.ecs_service.name}"
+  policy      = "${data.template_file.instance_profile.rendered}"
 }
 
 data "template_file" "ecr_read_only_policy" {
@@ -49,18 +49,21 @@ data "template_file" "ecr_read_only_policy" {
 
 resource "aws_iam_policy" "ecr_read_only_policy" {
   name_prefix = "ecr_read_only_policy"
-  policy = "${data.template_file.ecr_read_only_policy.rendered}"
+  policy      = "${data.template_file.ecr_read_only_policy.rendered}"
 }
 
 resource "aws_iam_policy_attachment" "attach_ecr" {
-  name = "ecr_read_only_policy"
+  name       = "ecr_read_only_policy"
   roles      = ["${aws_iam_role.ecs_service.name}"]
   policy_arn = "${aws_iam_policy.ecr_read_only_policy.arn}"
 }
 
 resource "aws_iam_policy_attachment" "attach" {
-  name = "AmazonRoute53FullAccess"
+  name       = "AmazonRoute53FullAccess"
   roles      = ["${aws_iam_role.ecs_service.name}"]
   policy_arn = "arn:aws:iam::aws:policy/AmazonRoute53FullAccess"
 }
 
+output "ecs_iam_role" {
+  value = "${aws_iam_role.ecs_service.arn}"
+}
