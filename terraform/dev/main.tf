@@ -42,3 +42,15 @@ module "ecs-service" {
   cluster_name       = "${var.cluster_name}"
   ecs_iam_role       = "${module.ecs.ecs_iam_role}"
 }
+
+module "ci-user" {
+  source = "../modules/ci-user"
+}
+
+output "ci_user_access_key" {
+  value = "${module.ci-user.ci_user_access_key}"
+}
+
+output "ci_user_secret_key" {
+  value = "${module.ci-user.ci_user_secret_key}"
+}
