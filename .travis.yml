@@ -1,0 +1,17 @@
+language: python
+
+python:
+  - "3.4"
+
+services:
+  - docker
+
+install:
+  - pip install awscli ecs-deploy
+
+script:
+  - docker-compose build
+  - ./scripts/run-test.sh
+
+after_success:
+  - ./scripts/deploy.sh
