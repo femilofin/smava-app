@@ -14,3 +14,12 @@ $ docker-compose up -d
 ```
 
 3. Once all the services are started, visit http://localhost on your browser.
+
+## Setting up app on AWS
+
+1. Fork this repo
+2. Follow [this guide](terraform/README.md) to set up the infrastructure with terraform
+3. Update the `IMAGE_REPO` variable [here](scripts/deploy.sh) to your ECR repository URL
+4. [Integrate Travis CI](https://docs.travis-ci.com/user/getting-started/#to-get-started-with-travis-ci) with github
+5. After the CI/CD pipeline is successful on travis, visit the app on $url.$domain stated in the `terraform.tfvars`
+   [file](terraform/dev/terraform.tfvars)
