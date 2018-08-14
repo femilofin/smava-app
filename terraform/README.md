@@ -9,6 +9,7 @@ $ cd dev
 $ terraform init
 $ terraform apply
 ```
-Note: Incase you get a message like the one below while applying, visit the URL in the message and accept terms to use AMIs in AWS Marketplace.
-> StatusMessage: "In order to use this AWS Marketplace product you need to accept terms and subscribe. To do so please visit https://aws.amazon.com/marketplace/pp?sku=ryg425ue2hwnsok9ccfastg4. Launching EC2 instance failed."
+Note: Incase you get a message like the one below while applying, visit the URL in the message and accept terms to use AMIs in AWS Marketplace and run `terraform apply` again.
+> StatusMessage: "In order to use this AWS Marketplace product you need to accept terms and subscribe. To do so please visit https://aws.amazon.com/marketplace/pp?sku=ryg425ue2hwnsok9ccfastg4. Launching EC2 instance failed." 
 
+4. Copy and save the access and secret key output
