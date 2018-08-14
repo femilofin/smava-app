@@ -44,7 +44,8 @@ module "ecs-service" {
 }
 
 module "ci-user" {
-  source = "../modules/ci-user"
+  source      = "../modules/ci-user"
+  environment = "${var.environment}"
 }
 
 output "ci_user_access_key" {
