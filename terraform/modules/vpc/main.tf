@@ -20,11 +20,28 @@ module "vpc" {
   enable_dns_hostnames = "true"
   single_nat_gateway   = "true"
 
-  public_subnet_tags = {"Tier" = "public"}
-  private_subnet_tags = {"Tier" = "private"}
+  public_subnet_tags = {
+    "Tier" = "public"
+  }
+
+  private_subnet_tags = {
+    "Tier" = "private"
+  }
 
   tags {
     "Terraform"   = "true"
     "Environment" = "${var.environment}"
   }
+}
+
+output "public_subnets" {
+  value = "${module.vpc.public_subnets}"
+}
+
+output "private_subnets" {
+  value = "${module.vpc.private_subnets}"
+}
+
+output "vpc_id" {
+  value = "${module.vpc.vpc_id}"
 }
