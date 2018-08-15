@@ -15,8 +15,8 @@ module "bastion" {
   public_subnets = "${module.vpc.public_subnets}"
 }
 
-module "ecs" {
-  source          = "../modules/ecs"
+module "ecs-cluster" {
+  source          = "../modules/ecs-cluster"
   environment     = "${var.environment}"
   cluster_name    = "${var.cluster_name}"
   vpc_id          = "${module.vpc.vpc_id}"
@@ -34,9 +34,9 @@ module "ecs-service" {
   http_rule_priority = "${var.http_rule_priority}"
   domain             = "${var.domain}"
   url                = "${var.url}"
-  alb_dns_name       = "${module.ecs.alb_dns_name}"
-  alb_zone_id        = "${module.ecs.alb_zone_id}"
-  http_listener_arn  = "${module.ecs.http_listener_arn}"
+  alb_dns_name       = "${module.ecs-cluster.alb_dns_name}"
+  alb_zone_id        = "${module.ecs-cluster.alb_zone_id}"
+  http_listener_arn  = "${module.ecs-cluster.http_listener_arn}"
   application_memory = "${var.application_memory}"
   vpc_id             = "${module.vpc.vpc_id}"
   cluster_name       = "${var.cluster_name}"
