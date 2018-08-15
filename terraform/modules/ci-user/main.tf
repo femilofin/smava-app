@@ -10,8 +10,8 @@ data "template_file" "ci_user_policy" {
 }
 
 resource "aws_iam_user_policy" "ci_user_policy" {
-  name = "ecs_deployer_policy"
-  user = "${aws_iam_user.ci_user.name}"
+  name   = "ecs_deployer_policy"
+  user   = "${aws_iam_user.ci_user.name}"
   policy = "${data.template_file.ci_user_policy.rendered}"
 }
 

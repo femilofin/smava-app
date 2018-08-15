@@ -1,2 +1,7 @@
-variable "environment" { default="dev" }
-variable "project" { default="smava" }
+variable "environment" {
+  default = "dev"
+}
+
+variable "project" {
+  default = "smava"
+}
