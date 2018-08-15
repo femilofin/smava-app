@@ -7,6 +7,7 @@ variable "alb_dns_name" {}
 variable "alb_zone_id" {}
 variable "health_check" {}
 variable "http_listener_arn" {}
+variable "https_listener_arn" {}
 variable "http_rule_priority" {}
 variable "application_memory" {}
 variable "vpc_id" {}

@@ -56,7 +56,7 @@ resource "aws_alb" "alb" {
   }
 }
 
-resource "aws_alb_target_group" "http" {
+resource "aws_alb_target_group" "default" {
   name     = "http-${var.environment}"
   port     = 80
   protocol = "HTTP"
@@ -69,23 +69,29 @@ resource "aws_alb_listener" "http" {
   protocol          = "HTTP"
 
   default_action {
-    target_group_arn = "${aws_alb_target_group.http.id}"
+    target_group_arn = "${aws_alb_target_group.default.id}"
     type             = "forward"
   }
 }
 
-# resource "aws_alb_listener" "https" {
-#   load_balancer_arn = "${aws_alb.alb.arn}"
-#   port              = "443"
-#   protocol          = "HTTPS"
-#   ssl_policy        = "ELBSecurityPolicy-2015-05"
-#   certificate_arn   = "arn:aws:acm:eu-west-1:387526361725:certificate/99ff2a7e-bf8f-407f-9f51-f0a117ba9d52"
+data "aws_acm_certificate" "https" {
+  domain      = "${var.domain}"
+  types       = ["AMAZON_ISSUED"]
+  most_recent = true
+}
 
-#   default_action {
-#     target_group_arn = "${aws_alb_target_group.default.id}"
-#     type             = "forward"
-#   }
-# }
+resource "aws_alb_listener" "https" {
+  load_balancer_arn = "${aws_alb.alb.arn}"
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2015-05"
+  certificate_arn   = "${data.aws_acm_certificate.https.arn}"
+
+  default_action {
+    target_group_arn = "${aws_alb_target_group.default.id}"
+    type             = "forward"
+  }
+}
 
 output "alb_dns_name" {
   value = "${aws_alb.alb.dns_name}"
@@ -97,4 +103,8 @@ output "alb_zone_id" {
 
 output "http_listener_arn" {
   value = "${aws_alb_listener.http.arn}"
+}
+
+output "https_listener_arn" {
+  value = "${aws_alb_listener.https.arn}"
 }

@@ -5,7 +5,6 @@
     "cpu": 1,
     "memory": ${application_memory},
     "essential": true,
-    "command": ["start"],
     "placementStrategy": [
       {
         "field": "memory",
