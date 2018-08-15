@@ -23,6 +23,7 @@ module "ecs" {
   bastion_sg_id   = "${module.bastion.bastion_sg_id}"
   private_subnets = "${module.vpc.private_subnets}"
   public_subnets  = "${module.vpc.public_subnets}"
+  domain          = "${var.domain}"
 }
 
 module "ecs-service" {

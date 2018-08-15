@@ -69,7 +69,7 @@ resource "aws_alb_listener" "http" {
   protocol          = "HTTP"
 
   default_action {
-    target_group_arn = "${aws_alb_target_group.http.id}"
+    target_group_arn = "${aws_alb_target_group.default.id}"
     type             = "forward"
   }
 }
