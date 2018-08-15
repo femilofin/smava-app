@@ -26,3 +26,4 @@ variable "max_size" {
 variable "root_ebs_size" {
   default = "10"
 }
+
