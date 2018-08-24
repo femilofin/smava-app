@@ -74,24 +74,24 @@ resource "aws_alb_listener" "http" {
   }
 }
 
-data "aws_acm_certificate" "https" {
-  domain      = "${var.domain}"
-  types       = ["AMAZON_ISSUED"]
-  most_recent = true
-}
+# data "aws_acm_certificate" "https" {
+#   domain      = "${var.domain}"
+#   types       = ["AMAZON_ISSUED"]
+#   most_recent = true
+# }
 
-resource "aws_alb_listener" "https" {
-  load_balancer_arn = "${aws_alb.alb.arn}"
-  port              = "443"
-  protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-2015-05"
-  certificate_arn   = "${data.aws_acm_certificate.https.arn}"
+# resource "aws_alb_listener" "https" {
+#   load_balancer_arn = "${aws_alb.alb.arn}"
+#   port              = "443"
+#   protocol          = "HTTPS"
+#   ssl_policy        = "ELBSecurityPolicy-2015-05"
+#   certificate_arn   = "${data.aws_acm_certificate.https.arn}"
 
-  default_action {
-    target_group_arn = "${aws_alb_target_group.default.id}"
-    type             = "forward"
-  }
-}
+#   default_action {
+#     target_group_arn = "${aws_alb_target_group.default.id}"
+#     type             = "forward"
+#   }
+# }
 
 output "alb_dns_name" {
   value = "${aws_alb.alb.dns_name}"
@@ -105,6 +105,6 @@ output "http_listener_arn" {
   value = "${aws_alb_listener.http.arn}"
 }
 
-output "https_listener_arn" {
-  value = "${aws_alb_listener.https.arn}"
-}
+# output "https_listener_arn" {
+#   value = "${aws_alb_listener.https.arn}"
+# }
