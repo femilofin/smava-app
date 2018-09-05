@@ -16,7 +16,7 @@ module "bastion" {
 }
 
 module "ecs" {
-  source          = "../modules/ecs"
+  source          = "../modules/ecs-cluster"
   environment     = "${var.environment}"
   cluster_name    = "${var.cluster_name}"
   vpc_id          = "${module.vpc.vpc_id}"
@@ -38,7 +38,7 @@ module "ecs-service" {
   alb_dns_name       = "${module.ecs.alb_dns_name}"
   alb_zone_id        = "${module.ecs.alb_zone_id}"
   http_listener_arn  = "${module.ecs.http_listener_arn}"
-  https_listener_arn = "${module.ecs.https_listener_arn}"
+  # https_listener_arn = "${module.ecs.https_listener_arn}"
   application_memory = "${var.application_memory}"
   vpc_id             = "${module.vpc.vpc_id}"
   cluster_name       = "${var.cluster_name}"

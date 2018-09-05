@@ -49,20 +49,20 @@ resource "aws_alb_listener_rule" "http_rule" {
   }
 }
 
-resource "aws_alb_listener_rule" "https_rule" {
-  listener_arn = "${var.https_listener_arn}"
-  priority     = "${var.http_rule_priority}"
+# resource "aws_alb_listener_rule" "https_rule" {
+#   listener_arn = "${var.https_listener_arn}"
+#   priority     = "${var.http_rule_priority}"
 
-  action {
-    type             = "forward"
-    target_group_arn = "${aws_alb_target_group.target.arn}"
-  }
+#   action {
+#     type             = "forward"
+#     target_group_arn = "${aws_alb_target_group.target.arn}"
+#   }
 
-  condition {
-    field  = "host-header"
-    values = ["${var.url}.${var.domain}"]
-  }
-}
+#   condition {
+#     field  = "host-header"
+#     values = ["${var.url}.${var.domain}"]
+#   }
+# }
 
 data "template_file" "ecs_template" {
   template = "${file("${path.module}/files/service.tpl.json")}"
